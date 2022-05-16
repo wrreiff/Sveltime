@@ -1,6 +1,6 @@
 <script lang='ts'>
   import { onMount } from 'svelte';
-  import { parse } from 'svelte/compiler';
+  import { parse, walk} from 'svelte/compiler';
   export let name:string;
   let sourceFile:string[];
   onMount(() => {
@@ -10,14 +10,18 @@
     name: "start",
     tabId: chrome.devtools.inspectedWindow.tabId,
     });
-    port.onMessage.addListener(msg => {
-        if (msg.source){
-           console.log('source received from devtools: ', msg.source);
-           sourceFile = msg.source;
-           const ast = parse(msg.source);
-           console.log('ast after parse: ', ast);
-        }
-      });
+    port.onMessage.addListener((msg) => {
+      console.log('msg received: ', msg);
+      if (msg.newArr){
+        msg.newArr.forEach((e) => {
+            if (e.source){
+              console.log('file URL: ', e.url);
+              const ast = parse(e.source);
+              console.log('ast: ', ast);
+            }
+        })
+      }
+    });
   });
    
   </script>

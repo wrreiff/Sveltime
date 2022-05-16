@@ -10,12 +10,16 @@ chrome.runtime.onConnect.addListener(port => {
         console.log('resources: ', resources);
         const arrSvelteFiles = resources.filter((file) => !!file.url.match(/.svelte$/));
         console.log('svelte files array: ', arrSvelteFiles);
-        arrSvelteFiles[0].getContent((source) => {
-          if (source) {
-            console.log('source: ', source);
-            port.postMessage({ source: source })
-          }
+        const svelteFilesToSend = [];
+        arrSvelteFiles.forEach(svelteFile => {
+          svelteFile.getContent((source) => {
+            if (source) {
+              // console.log('source: ', source);
+              svelteFilesToSend.push(source)
+            }
+          });
         });
+        port.postMessage({ source: svelteFilesToSend })
       }); 
     }
   })

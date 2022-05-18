@@ -18,6 +18,13 @@
               console.log('file URL: ', e.url);
               const ast = parse(e.source);
               console.log('ast: ', ast);
+              if (e.url === "http://localhost:5000/src/App.svelte") {
+                walk(ast, {
+                  enter(node, parent, prop, index) {
+                    console.log(node);
+                  }
+                })
+              }
             }
         })
       }

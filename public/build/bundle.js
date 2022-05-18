@@ -1,5 +1,5 @@
 
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35730/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 var app = (function () {
     'use strict';
 
@@ -16132,7 +16132,6 @@ var app = (function () {
     	let t1;
     	let t2;
     	let p1;
-    	let t3;
 
     	return {
     		c() {
@@ -16141,7 +16140,7 @@ var app = (function () {
     			t1 = text$1(/*name*/ ctx[0]);
     			t2 = space();
     			p1 = element("p");
-    			t3 = text$1(/*sourceFile*/ ctx[1]);
+    			p1.textContent = `${/*sourceFile*/ ctx[1]}`;
     		},
     		m(target, anchor) {
     			insert(target, p0, anchor);
@@ -16149,11 +16148,9 @@ var app = (function () {
     			append(p0, t1);
     			insert(target, t2, anchor);
     			insert(target, p1, anchor);
-    			append(p1, t3);
     		},
     		p(ctx, [dirty]) {
     			if (dirty & /*name*/ 1) set_data(t1, /*name*/ ctx[0]);
-    			if (dirty & /*sourceFile*/ 2) set_data(t3, /*sourceFile*/ ctx[1]);
     		},
     		i: noop$1,
     		o: noop$1,
@@ -16187,6 +16184,14 @@ var app = (function () {
     						console.log('file URL: ', e.url);
     						const ast = parse$3(e.source);
     						console.log('ast: ', ast);
+
+    						if (e.url === "http://localhost:5000/src/App.svelte") {
+    							walk(ast, {
+    								enter(node, parent, prop, index) {
+    									console.log(node);
+    								}
+    							});
+    						}
     					}
     				});
     			}

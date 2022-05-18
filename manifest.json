@@ -17,7 +17,14 @@
       "matches": [
         "<all_urls>"
       ],
-      "js": ["/extension/js/content.js"]
+      "js": ["/extension/js/content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["/extension/js/treescript.js"],
+      "matches": ["<all_urls>"]
     }
   ],
 

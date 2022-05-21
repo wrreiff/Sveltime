@@ -5,6 +5,9 @@ chrome.runtime.onConnect.addListener(port => {
   port.onMessage.addListener((msg) => {
     let arrSvelteFiles;
     if (msg.name === 'start') {
+      chrome.devtools.inspectedWindow.eval(
+        ''
+      )
       chrome.devtools.inspectedWindow.getResources((resources) => {
         console.log('resources: ', resources);
         arrSvelteFiles = resources.filter((file) => !!file.url.match(/.svelte$/));

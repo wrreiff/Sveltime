@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, afterUpdate } from 'svelte'
   import { compile, parse, walk } from 'svelte/compiler'
+import { get } from 'svelte/store';
   import Container from './Container.svelte'
   export let headNodes: any = []
   // export let currentComponents = headNodes;
@@ -22,6 +23,7 @@
         msg.newArr.forEach((e) => {
           if (e.source) {
             const compileOutput = compile(e.source)
+            console.log('e', e);
             console.log('compileOutput: ', compileOutput)
             const ast = parse(e.source)
             if (
